@@ -50,6 +50,10 @@ If you need, you can find the installation instructions [here](https://cookiecut
 > cookiecutter template-ml-dvc
 > ```
 
+![demo](./img/demo.gif)
+
+<html src>
+
 ## Tools used in this project
 
 ### Summary
