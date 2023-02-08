@@ -26,7 +26,7 @@ If you need, you can find the installation instructions [here](https://cookiecut
 
 1. Run cookiecutter to generate the project.
    ```bash
-   cookiecutter https://github.com/pierrerochet/template-ml-dvc
+   cookiecutter https://github.com/pirocheto/template-ml-dvc
    ```
 2. Answer the questions prompted by cookiecutter. For example:
 
