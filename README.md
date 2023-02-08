@@ -47,7 +47,7 @@ If you need, you can find the installation instructions [here](https://cookiecut
 > **NOTE**: Next time, you will able to run the command with the model name only because cookicutter will have already downloaded all the necessary files.
 >
 > ```bash
-> cookiecutter template-mlops-dvc
+> cookiecutter template-ml-dvc
 > ```
 
 ## Tools used in this project
