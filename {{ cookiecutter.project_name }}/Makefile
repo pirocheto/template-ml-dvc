@@ -15,8 +15,8 @@ install-poetry:
 	curl -sSL https://install.python-poetry.org | python3 -
 
 # Install all dependencies in current env
-.PHONY: install-deps
-install-deps:
+.PHONY: install
+install:
 	poetry install --no-root
 
 # Install pre-commit hook
@@ -28,7 +28,7 @@ pre-commit:
 push:
 	dvc push
 
-## Download Data from default DVC remote
+## Download data from default DVC remote
 pull:
 	dvc pull
 
