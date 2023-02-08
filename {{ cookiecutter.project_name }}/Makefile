@@ -28,12 +28,12 @@ pre-commit:
 .PHONY: git
 git:
 	git init
-	git add --all
-	git commit -m "init"
 
 # Initialize project
 .PHONY: init
-init: git install pre-commit
+init: install git pre-commit
+	git add --all
+	git commit -m "init"
 
 ## Upload Data to default DVC remote
 .PHONY: push
