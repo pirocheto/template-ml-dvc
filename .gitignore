@@ -90,6 +90,3 @@ target/
 # pytest cache
 .pytest_cache/
 
-# models
-/models
-
