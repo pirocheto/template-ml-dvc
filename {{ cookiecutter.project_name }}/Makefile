@@ -28,6 +28,8 @@ pre-commit:
 .PHONY: git
 git:
 	git init
+	git add --all
+	git commit -m "init"
 
 # Initialize project
 .PHONY: init
