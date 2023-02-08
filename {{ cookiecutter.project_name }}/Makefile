@@ -24,11 +24,22 @@ install:
 pre-commit:
 	pre-commit install
 
+# Initialize git
+.PHONY: git
+git:
+	git init
+
+# Initialize project
+.PHONY: init
+init: git pre-commit install
+
 ## Upload Data to default DVC remote
+.PHONY: push
 push:
 	dvc push
 
 ## Download data from default DVC remote
+.PHONY: pull
 pull:
 	dvc pull
 

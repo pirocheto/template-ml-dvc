@@ -11,10 +11,10 @@
 
 ## Usage
 
-1. Install the python dependencies
+1. Initialize project
 
    ```bash
-   make install
+   make init
    ```
 
 2. Run an experiment
