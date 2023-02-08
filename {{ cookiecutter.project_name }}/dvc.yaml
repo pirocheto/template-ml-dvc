@@ -9,7 +9,6 @@ vars:
       metrics: metrics.yaml
   - ndigits: 3
 
-
 stages:
   split:
     cmd: >-
@@ -59,10 +58,10 @@ plots:
   - train_test_split:
       title: Train test split
       template: templates/train_test_split.json
-      x: 
+      x:
         data/splitted/train.csv: target
         data/splitted/test.csv: target
-      y: 
+      y:
         data/splitted/train.csv: target
         data/splitted/test.csv: target
 
