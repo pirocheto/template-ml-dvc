@@ -1,0 +1,105 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": { "values": "<DVC_METRIC_DATA>" },
+  "transform": [
+    {
+      "calculate": "datum.true == datum.pred ? 'True' : 'False'",
+      "as": "correct"
+    },
+    { "bin": { "step": 0.02 }, "field": "<DVC_METRIC_Y>", "as": "prob" }
+  ],
+  "title": "<DVC_METRIC_TITLE>",
+
+  "hconcat": [
+    {
+      "width": 220,
+      "height": 420,
+      "transform": [
+        {
+          "filter": { "field": "correct", "equal": "True" }
+        }
+      ],
+      "title": "Correct",
+      "mark": { "type": "bar", "tooltip": true },
+      "encoding": {
+        "y": {
+          "axis": null,
+          "field": "prob",
+          "type": "ordinal",
+          "sort": "descending"
+        },
+        "x": {
+          "aggregate": "count",
+          "field": "correct",
+          "sort": "descending",
+          "axis": { "tickMinStep": 1 },
+          "title": null
+        },
+        "color": {
+          "scale": { "scheme": "paired" },
+          "field": "correct",
+          "legend": null
+        }
+      }
+    },
+    {
+      "width": 20,
+      "height": 420,
+      "view": { "stroke": null },
+      "mark": {
+        "type": "text",
+        "align": "center"
+      },
+      "encoding": {
+        "y": {
+          "axis": null,
+          "field": "prob",
+          "type": "ordinal",
+          "sort": "descending",
+          "bandPosition": 1
+        },
+        "text": {
+          "aggregate": "min",
+          "field": "prob",
+          "type": "ordinal",
+          "format": ".2f"
+        }
+      }
+    },
+    {
+      "width": 220,
+      "height": 420,
+      "transform": [
+        {
+          "filter": { "field": "correct", "equal": "False" }
+        }
+      ],
+      "title": "Incorrect",
+      "mark": { "type": "bar", "tooltip": true },
+      "encoding": {
+        "y": {
+          "axis": null,
+          "field": "prob",
+          "type": "ordinal",
+          "sort": "descending"
+        },
+        "x": {
+          "aggregate": "count",
+          "field": "correct",
+          "axis": { "tickMinStep": 1 },
+          "title": null
+        },
+        "color": {
+          "scale": { "scheme": "paired" },
+          "field": "correct",
+          "legend": null
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": { "stroke": null },
+    "axis": { "grid": false }
+  },
+  "resolve": { "scale": { "x": "independent", "y": "shared" } }
+}

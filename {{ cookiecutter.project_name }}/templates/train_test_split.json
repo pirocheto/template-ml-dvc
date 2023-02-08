@@ -1,0 +1,62 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": { "values": "<DVC_METRIC_DATA>" },
+  "transform": [
+    {
+      "calculate": "datum.rev == 'data/splitted/train.csv' ? 'train' : 'test'",
+      "as": "set"
+    }
+  ],
+  "title": "<DVC_METRIC_TITLE>",
+  "width": 320,
+  "height": 320,
+
+  "encoding": {
+    "y": {
+      "field": "<DVC_METRIC_X>"
+    }
+  },
+
+  "layer": [
+    {
+      "mark": { "type": "bar", "tooltip": { "content": "data" } },
+      "encoding": {
+        "x": {
+          "aggregate": "count",
+          "field": "set",
+          "title": "count",
+          "stack": "zero",
+          "sort": { "encoding": "color" }
+        },
+        "color": {
+          "field": "set",
+          "scale": {
+            "domain": ["train", "test"],
+            "scheme": "paired"
+          }
+        }
+      }
+    },
+    {
+      "mark": { "type": "text" },
+      "encoding": {
+        "x": {
+          "aggregate": "count",
+          "field": "set",
+          "title": "count",
+          "stack": "zero",
+          "bandPosition": 0.5,
+          "sort": { "encoding": "color" }
+        },
+        "text": {
+          "aggregate": "count",
+          "field": "set",
+          "title": "count"
+        },
+        "detail": {
+          "field": "set"
+        }
+      }
+    }
+  ]
+}

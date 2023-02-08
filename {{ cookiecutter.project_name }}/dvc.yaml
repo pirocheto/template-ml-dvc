@@ -1,0 +1,81 @@
+vars:
+  - paths:
+      code: src
+      data: data/origin/data.csv
+      train: data/splitted/train.csv
+      test: data/splitted/test.csv
+      predicted: data/predicted/test.csv
+      model: models/model.pkl
+      metrics: metrics.yaml
+  - ndigits: 3
+
+
+stages:
+  split:
+    cmd: >-
+      python ${paths.code}/split_data.py
+      ${paths.data}
+      ${paths.train}
+      ${paths.test}
+      ${split}
+    deps:
+      - ${paths.data}
+      - ${paths.code}
+    outs:
+      - ${paths.train}
+      - ${paths.test}
+
+  train:
+    cmd: >-
+      python ${paths.code}/train_model.py
+      ${paths.model}
+      ${paths.train}
+      ${model}
+    deps:
+      - ${paths.train}
+      - ${paths.code}
+    outs:
+      - ${paths.model}
+
+  test:
+    cmd: >-
+      python ${paths.code}/test_model.py
+      ${paths.test}
+      ${paths.model}
+      ${paths.predicted}
+      ${paths.metrics}
+      --ndigits ${ndigits}
+    deps:
+      - ${paths.model}
+      - ${paths.test}
+      - ${paths.code}
+    outs:
+      - ${paths.predicted}
+    metrics:
+      - ${paths.metrics}:
+          cache: false
+
+plots:
+  - train_test_split:
+      title: Train test split
+      template: templates/train_test_split.json
+      x: 
+        data/splitted/train.csv: target
+        data/splitted/test.csv: target
+      y: 
+        data/splitted/train.csv: target
+        data/splitted/test.csv: target
+
+  - confusion:
+      title: Confusion matrix
+      template: confusion
+      x:
+        data/predicted/test.csv: "true"
+      y:
+        data/predicted/test.csv: "pred"
+
+  - confidence_score:
+      title: Confidence scores
+      template: templates/confidence_score.json
+      y:
+        data/predicted/test.csv: "prob"

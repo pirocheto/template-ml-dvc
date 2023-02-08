@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "{{cookiecutter.project_name}}"
+version = "0.1.0"
+description = "{{cookiecutter.description}}"
+authors = ["{{cookiecutter.author_name}}"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+dvc = "^2.43.4"
+scikit-learn = "^1.2.1"
+typer = "^0.7.0"
+pandas = "^1.5.3"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+pylint = "^2.16.1"
+mypy = "^1.0.0"
+pre-commit = "^3.0.4"
+flake8 = "^6.0.0"
+flake8-docstrings = "^1.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 119
+
+[tool.pycln]
+all = true
+
+[tool.isort]
+line_length = 119
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true

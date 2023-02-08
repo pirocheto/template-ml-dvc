@@ -1,0 +1,12 @@
+split:
+  test-size: 0.3
+  random-state: 42
+  stratify: True
+
+model:
+  penalty: l2
+  dual: False
+  tol: 1e-4
+  c: 10
+  multi-class: auto
+  max-iter: 100
