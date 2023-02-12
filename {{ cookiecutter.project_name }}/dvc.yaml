@@ -1,57 +1,49 @@
 vars:
-  - paths:
-      code: src
-      data: data/origin/data.csv
-      train: data/splitted/train.csv
-      test: data/splitted/test.csv
-      predicted: data/predicted/test.csv
-      model: models/model.pkl
-      metrics: metrics.yaml
   - ndigits: 3
 
 stages:
   split:
     cmd: >-
-      python ${paths.code}/split_data.py
-      ${paths.data}
-      ${paths.train}
-      ${paths.test}
+      python src/split_data.py
+      data/origin/data.csv
+      data/splitted/train.csv
+      data/splitted/test.csv
       ${split}
     deps:
-      - ${paths.data}
-      - ${paths.code}
+      - data/origin/data.csv
+      - src
     outs:
-      - ${paths.train}
-      - ${paths.test}
+      - data/splitted/train.csv
+      - data/splitted/test.csv
 
   train:
     cmd: >-
-      python ${paths.code}/train_model.py
-      ${paths.model}
-      ${paths.train}
-      ${model}
+      python src/train_model.py
+      models/model.pkl
+      data/splitted/train.csv
+      models/model.pkl
     deps:
-      - ${paths.train}
-      - ${paths.code}
+      - data/splitted/train.csv
+      - src
     outs:
-      - ${paths.model}
+      - models/model.pkl
 
   test:
     cmd: >-
-      python ${paths.code}/test_model.py
-      ${paths.test}
-      ${paths.model}
-      ${paths.predicted}
-      ${paths.metrics}
+      python src/test_model.py
+      data/splitted/test.csv
+      models/model.pkl
+      data/predicted/test.csv
+      metrics.yaml
       --ndigits ${ndigits}
     deps:
-      - ${paths.model}
-      - ${paths.test}
-      - ${paths.code}
+      - models/model.pkl
+      - data/splitted/test.csv
+      - src
     outs:
-      - ${paths.predicted}
+      - data/predicted/test.csv
     metrics:
-      - ${paths.metrics}:
+      - metrics.yaml:
           cache: false
 
 plots:
