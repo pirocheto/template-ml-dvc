@@ -21,7 +21,6 @@ stages:
       python src/train_model.py
       models/model.pkl
       data/splitted/train.csv
-      models/model.pkl
     deps:
       - data/splitted/train.csv
       - src
