@@ -1,22 +1,20 @@
 from pathlib import Path
-from typing import Union
 
-import joblib
 import pandas as pd
-import typer
+from mlem.api import save
 from sklearn.linear_model import LogisticRegression
 
 
-def train_model(
-    model_path: str,
+def _train_model(
     train_path: str,
+    model_path: str,
     penalty: str = "l2",
     dual: bool = False,
     tol: float = 1e-4,
     C: float = 100.0,
     multi_class: str = "auto",
     max_iter: int = 100,
-    class_weight: Union[None, str] = None,
+    class_weight: None | str = None,
 ):
     model = LogisticRegression(
         penalty=penalty,
@@ -31,7 +29,6 @@ def train_model(
     df_train = pd.read_csv(train_path)
 
     X_train = df_train.drop(["target"], axis=1)
-
     y_train = df_train["target"]
 
     model.fit(X_train, y_train)
@@ -40,8 +37,5 @@ def train_model(
         parents=True,
         exist_ok=True,
     )
-    joblib.dump(model, model_path)
 
-
-if __name__ == "__main__":
-    typer.run(train_model)
+    save(model, model_path, sample_data=X_train.sample(50))

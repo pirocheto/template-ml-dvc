@@ -3,8 +3,7 @@ vars:
 
 stages:
   split:
-    cmd: >-
-      python src/split_data.py
+    cmd: python src/cli.py data split
       data/origin/data.csv
       data/splitted/train.csv
       data/splitted/test.csv
@@ -18,9 +17,9 @@ stages:
 
   train:
     cmd: >-
-      python src/train_model.py
-      models/model.pkl
+      python src/cli.py model train
       data/splitted/train.csv
+      models/model.pkl
     deps:
       - data/splitted/train.csv
       - src
@@ -29,7 +28,7 @@ stages:
 
   test:
     cmd: >-
-      python src/test_model.py
+      python src/cli.py model test
       data/splitted/test.csv
       models/model.pkl
       data/predicted/test.csv

@@ -1,11 +1,10 @@
 from pathlib import Path
 
 import pandas as pd
-import typer
 from sklearn.model_selection import train_test_split
 
 
-def split_data(
+def _split_data(
     data_path: str,
     train_path: str,
     test_path: str,
@@ -32,7 +31,3 @@ def split_data(
 
     df_train.to_csv(train_path, index=False)
     df_test.to_csv(test_path, index=False)
-
-
-if __name__ == "__main__":
-    typer.run(split_data)

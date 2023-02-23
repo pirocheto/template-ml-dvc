@@ -3,13 +3,13 @@ from pathlib import Path
 import joblib
 import numpy as np
 import pandas as pd
-import typer
 from ruamel.yaml import YAML
 from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support
 
 
 def _compute_metrics(y_test, y_pred, ndigits=2):
     mcc = matthews_corrcoef(y_test, y_pred)
+
     pre, rec, f1_score, _ = precision_recall_fscore_support(
         y_test,
         y_pred,
@@ -17,16 +17,16 @@ def _compute_metrics(y_test, y_pred, ndigits=2):
     )
 
     metrics = {
-        "precision": round(pre, ndigits),
-        "recall": round(rec, ndigits),
-        "f1": round(f1_score, ndigits),
-        "mcc": round(mcc, ndigits),
+        "precision": float(round(pre, ndigits)),
+        "recall": float(round(rec, ndigits)),
+        "f1": float(round(f1_score, ndigits)),
+        "mcc": float(round(mcc, ndigits)),
     }
-    metrics = {key: float(value) for key, value in metrics.items()}
+
     return metrics
 
 
-def test_model(
+def _test_model(
     test_path: str,
     model_path: str,
     predicted_path: str,
@@ -66,7 +66,3 @@ def test_model(
 
     with open(metrics_path, "w", encoding="utf8") as fp:
         yaml.dump(metrics, fp)
-
-
-if __name__ == "__main__":
-    typer.run(test_model)
