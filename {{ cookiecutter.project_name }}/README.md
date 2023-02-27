@@ -2,13 +2,6 @@
 
 ## Getting Started
 
-### Prerequisites
-
-#### Tools
-
-- [Make](https://www.gnu.org/software/make/manual/make.html)
-- [Poetry](https://python-poetry.org/docs/)
-
 ## Usage
 
 1. Initialize project
