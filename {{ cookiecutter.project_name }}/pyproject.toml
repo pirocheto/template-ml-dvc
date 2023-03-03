@@ -10,6 +10,7 @@ dvc = "^2.43.4"
 scikit-learn = "^1.2.1"
 typer = "^0.7.0"
 pandas = "^1.5.3"
+mlem = "^0.4.6"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
