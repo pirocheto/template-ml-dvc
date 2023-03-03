@@ -106,7 +106,6 @@ def test_model(
     model_path: str,
     predicted_path: str,
     metrics_path: str,
-    ndigits: int = 2,
 ):
     """
     Runs a test on the trained model using the provided test data\
@@ -117,7 +116,6 @@ def test_model(
         model_path (str): File path for the trained model.
         predicted_path (str): File path to save the predicted results.
         metrics_path (str): File path to save the evaluation metrics.
-        ndigits (int, optional): Number of digits to round the evaluation metrics. Defaults to 2.
 
     Returns:
         None
@@ -128,7 +126,6 @@ def test_model(
         model_path=model_path,
         predicted_path=predicted_path,
         metrics_path=metrics_path,
-        ndigits=ndigits,
     )
 
 

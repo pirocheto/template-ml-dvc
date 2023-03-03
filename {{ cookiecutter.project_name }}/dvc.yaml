@@ -1,6 +1,3 @@
-vars:
-  - ndigits: 3
-
 stages:
   split:
     cmd: python src/cli.py data split
@@ -33,7 +30,6 @@ stages:
       models/model.pkl
       data/predicted/test.csv
       metrics.yaml
-      --ndigits ${ndigits}
     deps:
       - models/model.pkl
       - data/splitted/test.csv

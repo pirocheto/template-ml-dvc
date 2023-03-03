@@ -35,7 +35,7 @@ stages:
       size: 1519
   test:
     cmd: python src/test_model.py data/splitted/test.csv models/model.pkl data/predicted/test.csv
-      metrics.yaml --ndigits 3
+      metrics.yaml
     deps:
     - path: data/splitted/test.csv
       md5: a7fc207fe4179b258bcfeaaf1ee77991

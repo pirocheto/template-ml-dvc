@@ -7,20 +7,21 @@ from ruamel.yaml import YAML
 from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support
 
 
-def _compute_metrics(y_test, y_pred, ndigits=2):
-    mcc = matthews_corrcoef(y_test, y_pred)
-
-    pre, rec, f1_score, _ = precision_recall_fscore_support(
+def _compute_metrics(y_test, y_pred):
+    metrics = ["precision", "recall", "f1", "support"]
+    metrics_macro = precision_recall_fscore_support(
         y_test,
         y_pred,
         average="macro",
     )
+    metrics_macro = np.array(metrics_macro[:-1]).tolist()
+    metrics_macro = dict(zip(metrics, metrics_macro))
+
+    mcc = float(matthews_corrcoef(y_test, y_pred))
 
     metrics = {
-        "precision": float(round(pre, ndigits)),
-        "recall": float(round(rec, ndigits)),
-        "f1": float(round(f1_score, ndigits)),
-        "mcc": float(round(mcc, ndigits)),
+        "macro": metrics_macro,
+        "mcc": mcc,
     }
 
     return metrics
@@ -31,7 +32,6 @@ def _test_model(
     model_path: str,
     predicted_path: str,
     metrics_path: str,
-    ndigits: int = 2,
 ):
     df_test = pd.read_csv(test_path)
 
@@ -55,7 +55,7 @@ def _test_model(
     )
     X_test.to_csv(predicted_path, index=False)
 
-    metrics = _compute_metrics(y_test, y_pred, ndigits)
+    metrics = _compute_metrics(y_test, y_pred)
 
     Path(metrics_path).parent.mkdir(
         parents=True,
